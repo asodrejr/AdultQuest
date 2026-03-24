@@ -27,8 +27,8 @@ body {
   width: 100%;
   height: 100%;
   background-image: url('../assets/backgrounds/login_morning_scene.png');
-  background-size: cover;       /* ocupa toda a tela, pode cortar partes laterais ou topo/baixo */
-  background-position: center;  /* centra a imagem para cortar partes iguais dos lados */
+  background-size: cover;
+  background-position: center;
   background-repeat: no-repeat;
   z-index: 0;
 }

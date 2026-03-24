@@ -13,7 +13,12 @@
       <div class="background"></div>
     </div>
 
-    <button id="start-button" onclick="location.href='game.html'">Começar Aventura</button>
+    <button id="start-button">Começar Aventura</button>
+    <script>
+    document.getElementById('start-button').addEventListener('click', function() {
+    window.location.href = 'game.html';
+    });
+    </script>
   </div>
 </body>
 </html>
