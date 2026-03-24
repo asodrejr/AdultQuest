@@ -1,22 +1,88 @@
+/* Mobile-first */
+
 body {
+  margin: 0;
+  padding: 0;
   font-family: monospace;
-  background-color: #222;
-  color: #eee;
+  overflow-x: hidden;
+}
+
+#intro-screen {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
   text-align: center;
 }
 
-#hud {
-  margin: 20px auto;
-  padding: 10px;
-  border: 2px solid #eee;
-  width: 250px;
-  background-color: #333;
-  text-align: left;
+#scene {
+  position: relative;
+  width: 100%;
+  height: 100%;
 }
 
-#buttons button {
-  margin: 5px;
-  padding: 10px 20px;
-  font-size: 16px;
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../assets/backgrounds/login_morning_scene.png');
+  background-size: cover;       /* ocupa toda a tela, pode cortar partes laterais ou topo/baixo */
+  background-position: center;  /* centra a imagem para cortar partes iguais dos lados */
+  background-repeat: no-repeat;
+  z-index: 0;
+}
+
+.player {
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 15vw;
+  height: auto;
+  z-index: 1;
+}
+
+#game-title {
+  position: absolute;
+  top: 5%;
+  width: 100%;
+  color: #fff;
+  font-size: 6vw;
+  text-shadow: 2px 2px 4px #000;
+  z-index: 2;
+}
+
+#start-button {
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 3vw 8vw;
+  font-size: 4vw;
+  border: none;
+  border-radius: 8px;
+  background-color: #f0c000;
+  color: #000;
+  font-weight: bold;
   cursor: pointer;
+  z-index: 2;
+}
+
+#start-button:active {
+  background-color: #d9a800;
+}
+
+/* Ajustes para tablets e telas maiores */
+@media (min-width: 768px) {
+  #game-title {
+    font-size: 3vw;
+  }
+  .player {
+    width: 10vw;
+  }
+  #start-button {
+    padding: 2vw 5vw;
+    font-size: 2.5vw;
+  }
 }

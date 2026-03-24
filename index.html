@@ -2,27 +2,18 @@
 <html>
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AdultQuest MVP</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <h1>AdultQuest MVP</h1>
+  <div id="intro-screen">
 
-  <div id="hud">
-    <p id="money">Dinheiro: 100</p>
-    <p id="energy">Energia: 100</p>
-    <p id="stress">Estresse: 0</p>
-    <p id="health">Saúde: 100</p>
-    <p id="relationships">Relacionamentos: 50</p>
-    <p id="xp">XP: 0</p>
+    <div id="scene">
+      <div class="background"></div>
+    </div>
+
+    <button id="start-button" onclick="location.href='game.html'">Começar Aventura</button>
   </div>
-
-  <div id="buttons">
-    <button onclick="work()">Trabalhar Extra</button>
-    <button onclick="rest()">Descansar</button>
-    <button onclick="social()">Socializar</button>
-  </div>
-
-  <script src="js/game.js"></script>
 </body>
 </html>
