@@ -1,5 +1,3 @@
-/* Mobile-first */
-
 body {
   margin: 0;
   padding: 0;
@@ -73,7 +71,6 @@ body {
   background-color: #d9a800;
 }
 
-/* Ajustes para tablets e telas maiores */
 @media (min-width: 768px) {
   #game-title {
     font-size: 3vw;
@@ -84,5 +81,145 @@ body {
   #start-button {
     padding: 2vw 5vw;
     font-size: 2.5vw;
+  }
+}
+
+/* Fundo ocupando toda a tela */
+#game-screen {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+#game-screen .background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: -1;
+}
+
+/* Painel de atributos */
+#attribute-panel {
+  position: absolute;
+  top: 5%;
+  left: 5%;
+  width: 40%;
+  background-color: rgba(255,255,255,0.85);
+  padding: 1rem;
+  border-radius: 8px;
+  font-family: monospace;
+}
+
+#attribute-panel h2 {
+  text-align: center;
+}
+
+.attr {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0.5rem 0;
+}
+
+.controls button {
+  width: 2rem;
+  height: 2rem;
+  font-weight: bold;
+  margin: 0 0.2rem;
+}
+
+#attribute-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+  font-weight: bold;
+}
+
+/* Mobile-first: painel ocupa mais largura em telas pequenas */
+@media (max-width: 768px) {
+  #attribute-panel {
+    width: 90%;
+    top: 2%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .controls button {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+}
+
+#attribute-panel {
+  position: absolute;
+  top: 5%;
+  left: 5%;
+  width: 40%;
+  background-color: rgba(255,255,255,0.9);
+  padding: 1rem;
+  border-radius: 12px;
+  font-family: monospace;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+#attribute-panel h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.attr {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0.5rem 0;
+  font-size: 1rem;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.controls button {
+  width: 2.2rem;
+  height: 2.2rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  background-color: #f0c000;
+  color: #000;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.controls button:hover {
+  background-color: #d9a800;
+}
+
+#attribute-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+/* Mobile-first */
+@media (max-width: 768px) {
+  #attribute-panel {
+    width: 90%;
+    top: 2%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .controls button {
+    width: 1.8rem;
+    height: 1.8rem;
   }
 }

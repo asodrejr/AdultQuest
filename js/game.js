@@ -1,38 +1,40 @@
-let money = 100;
-let energy = 100;
-let stress = 0;
-let health = 100;
-let relationships = 50;
-let xp = 0;
+// Objeto central de atributos
+let player = {
+  money: 1,
+  energy: 1,
+  stress: 1,
+  health: 1,
+  relationships: 1,
+  xp: 0,
+  points: 2
+};
 
+// Atualiza valores na tela
 function updateHUD() {
-  document.getElementById('money').innerText = `Dinheiro: ${money}`;
-  document.getElementById('energy').innerText = `Energia: ${energy}`;
-  document.getElementById('stress').innerText = `Estresse: ${stress}`;
-  document.getElementById('health').innerText = `Saúde: ${health}`;
-  document.getElementById('relationships').innerText = `Relacionamentos: ${relationships}`;
-  document.getElementById('xp').innerText = `XP: ${xp}`;
+  document.getElementById('money').innerText = player.money;
+  document.getElementById('energy').innerText = player.energy;
+  document.getElementById('stress').innerText = player.stress;
+  document.getElementById('health').innerText = player.health;
+  document.getElementById('relationships').innerText = player.relationships;
+  document.getElementById('xp').innerText = player.xp;
+  document.getElementById('points').innerText = player.points;
 }
 
-function work() {
-  money += 20;
-  energy -= 10;
-  stress += 5;
-  xp += 5;
+// Altera atributo com + ou -
+function changeAttr(attr, delta) {
+  if (player.points <= 0 && delta > 0) return;
+
+  player[attr] += delta;
+
+  // Mantém mínimo em 0
+  if (player[attr] < 0) player[attr] = 0;
+
+  // Ajusta pontos
+  if (delta > 0) player.points--;
+  if (delta < 0) player.points++;
+
   updateHUD();
 }
 
-function rest() {
-  energy += 20;
-  stress -= 10;
-  health += 10;
-  updateHUD();
-}
-
-function social() {
-  relationships += 10;
-  energy -= 5;
-  stress -= 5;
-  xp += 2;
-  updateHUD();
-}
+// Inicializa
+updateHUD();
