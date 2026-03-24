@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AdultQuest - Mapa</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Tela do mapa */
+    #map-screen {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      overflow: hidden;
+      touch-action: none;
+      background-color: #000;
+    }
+
+    /* Fundo do mapa */
+    #map-screen .background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('assets/backgrounds/map_scene.png');
+      background-size: cover;
+      background-position: center;
+      z-index: 0;
+    }
+
+    /* Personagem */
+    #character {
+      position: absolute;
+      width: 64px;
+      height: 64px;
+      z-index: 1;
+      background-repeat: no-repeat;
+      background-size: contain;
+    }
+
+    /* Botão voltar */
+    #back-button {
+      position: absolute;
+      bottom: 5%;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 1rem 2rem;
+      font-size: 1.5rem;
+      border: none;
+      border-radius: 8px;
+      background-color: #f0c000;
+      color: #000;
+      cursor: pointer;
+      z-index: 2;
+    }
+
+    /* Botões de setas para mobile */
+    .arrow-buttons {
+      position: absolute;
+      bottom: 5%;
+      right: 5%;
+      display: grid;
+      grid-template-columns: 50px 50px 50px;
+      grid-template-rows: 50px 50px 50px;
+      gap: 5px;
+      z-index: 3;
+    }
+    .arrow-buttons button {
+      width: 50px;
+      height: 50px;
+      font-size: 1.5rem;
+      border: none;
+      border-radius: 8px;
+      background-color: rgba(240,192,0,0.8);
+      color: #000;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div id="map-screen">
+    <div class="background"></div>
+    <div id="character"></div>
+
+    <!-- Botão voltar -->
+    <button id="back-button" onclick="window.location.href='game.html'">Voltar</button>
+
+    <!-- Controles mobile -->
+    <div class="arrow-buttons">
+      <div></div><button data-dir="up">▲</button><div></div>
+      <button data-dir="left">◀</button><div></div><button data-dir="right">▶</button>
+      <div></div><button data-dir="down">▼</button><div></div>
+    </div>
+  </div>
+
+  <script src="js/map.js"></script>
+</body>
+</html>
