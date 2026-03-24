@@ -1,0 +1,22 @@
+body {
+  font-family: monospace;
+  background-color: #222;
+  color: #eee;
+  text-align: center;
+}
+
+#hud {
+  margin: 20px auto;
+  padding: 10px;
+  border: 2px solid #eee;
+  width: 250px;
+  background-color: #333;
+  text-align: left;
+}
+
+#buttons button {
+  margin: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
