@@ -1,27 +1,61 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AdultQuest - Jogo</title>
+  <title>AdultQuest - Aventura</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <h1>AdultQuest - Aventura</h1>
+  <div id="game-screen">
+    <!-- Formulário de Atributos -->
+    <div id="attribute-panel">
+      <h2>ATRIBUTOS</h2>
+      <div class="attr-row">
+        <label>Dinheiro</label>
+        <button class="minus" data-attr="money">-</button>
+        <span id="money">1</span>
+        <button class="plus" data-attr="money">+</button>
+      </div>
+      <div class="attr-row">
+        <label>Energia</label>
+        <button class="minus" data-attr="energy">-</button>
+        <span id="energy">1</span>
+        <button class="plus" data-attr="energy">+</button>
+      </div>
+      <div class="attr-row">
+        <label>Estresse</label>
+        <button class="minus" data-attr="stress">-</button>
+        <span id="stress">1</span>
+        <button class="plus" data-attr="stress">+</button>
+      </div>
+      <div class="attr-row">
+        <label>Saúde</label>
+        <button class="minus" data-attr="health">-</button>
+        <span id="health">1</span>
+        <button class="plus" data-attr="health">+</button>
+      </div>
+      <div class="attr-row">
+        <label>Relacionamentos</label>
+        <button class="minus" data-attr="relationships">-</button>
+        <span id="relationships">1</span>
+        <button class="plus" data-attr="relationships">+</button>
+      </div>
 
-  <div id="hud">
-    <p id="money">Dinheiro: 100</p>
-    <p id="energy">Energia: 100</p>
-    <p id="stress">Estresse: 0</p>
-    <p id="health">Saúde: 100</p>
-    <p id="relationships">Relacionamentos: 50</p>
-    <p id="xp">XP: 0</p>
-  </div>
+      <!-- Rodapé com XP e Pontos -->
+      <div id="attribute-footer">
+        <div>XP: <span id="xp">0</span></div>
+        <div>PONTOS: <span id="points">2</span></div>
+      </div>
+    </div>
 
-  <div id="buttons">
-    <button onclick="work()">Trabalhar Extra</button>
-    <button onclick="rest()">Descansar</button>
-    <button onclick="social()">Socializar</button>
+    <!-- Personagem à direita -->
+    <div id="character-panel">
+      <img src="assets/backgrounds/character_standing.png" alt="Personagem" class="character">
+    </div>
+
+    <!-- Fundo do cenário -->
+    <div class="background"></div>
   </div>
 
   <script src="js/game.js"></script>
