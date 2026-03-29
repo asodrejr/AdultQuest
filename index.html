@@ -13,11 +13,27 @@
       <div class="background"></div>
     </div>
 
-    <button id="start-button">Começar Aventura</button>
+   <div id="menu-buttons">
+      <button id="start-button" class="menu-button">Start</button>
+      <button id="load-button" class="menu-button">Load</button>
+      <button id="option-button" class="menu-button">Options</button>
+    </div>
     <script>
-    document.getElementById('start-button').addEventListener('click', function() {
-    window.location.href = 'game.html';
-    });
+      document.getElementById('start-button').addEventListener('click', function() {
+      window.location.href = 'game.html';
+      });
+
+      document.getElementById('load-button').addEventListener('click', function() {
+      window.location.href = 'load.html';
+      });
+
+      document.getElementById('option-button').addEventListener('click', function() {
+      window.location.href = 'options.html';
+      });
+
+      document.addEventListener("DOMContentLoaded", function() {
+  // seu código aqui
+});
     </script>
   </div>
 </body>
