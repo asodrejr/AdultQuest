@@ -79,6 +79,11 @@ body {
   background-color: #d9a800;
 }
 
+.menu-button:hover{
+  color: #d9a800;
+  background-color: #252525;
+}
+
 
 @media (min-width: 768px) {
   #game-title {
