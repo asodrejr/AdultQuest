@@ -64,11 +64,12 @@ body {
 }
 
 .menu-button {
-  padding: 3vw 8vw;
+  padding: 2vw 4vw;
   font-size: 4vw;
   border: none;
   border-radius: 8px;
-  background-color: #f0c000;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.288);
+  background-color: #f0c000b8;
   color: #000;
   font-weight: bold;
   cursor: pointer;
@@ -80,8 +81,8 @@ body {
 }
 
 .menu-button:hover{
-  color: #d9a800;
-  background-color: #252525;
+  color: #d9a600;
+  background-color: #252525c7;
 }
 
 
