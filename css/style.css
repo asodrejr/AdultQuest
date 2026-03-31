@@ -255,3 +255,25 @@ body {
   object-fit: cover;
   z-index: -1;
 }
+
+
+/* Botão de fechar */
+.close-button {
+  margin-top: 1rem;
+  padding: 0.8rem 1.5rem;
+  border: none;
+  background-color: #f0c000;
+  color: #000;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.close-button:hover {
+  background-color: #d9a800;
+}
+
+/* Classe para esconder */
+.hidden {
+  display: none;
+}

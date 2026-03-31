@@ -18,23 +18,59 @@
       <button id="load-button" class="menu-button">Load</button>
       <button id="option-button" class="menu-button">Options</button>
     </div>
-    <script>
-      document.getElementById('start-button').addEventListener('click', function() {
-      window.location.href = 'game.html';
-      });
 
-      document.getElementById('load-button').addEventListener('click', function() {
-      window.location.href = 'load.html';
-      });
+    <!-- OVERLAY LOAD -->
+    <div id="load-screen" class="overlay hidden">
+      <div class="overlay-content">
+        <h2>Load Game</h2>
+        <p>Aqui você pode carregar seu progresso.</p>
+        <button class="close-button">Voltar</button>
+      </div>
+    </div>
 
-      document.getElementById('option-button').addEventListener('click', function() {
-      window.location.href = 'options.html';
-      });
+     <!-- OVERLAY OPTIONS -->
+    <div id="options-screen" class="overlay hidden">
+      <div class="overlay-content">
+        <h2>Options</h2>
+        <p>Configurações do jogo.</p>
+        <button class="close-button">Voltar</button>
+      </div>
+    </div>
 
-      document.addEventListener("DOMContentLoaded", function() {
-  // seu código aqui
-});
-    </script>
   </div>
+
+  
+  
+</div>
+    <script>
+      document.getElementById('start-button').addEventListener('click', function() {window.location.href = 'game.html';
+      });
+
+      const loadScreen= document.getElementById("load-screen");
+      const optionsScreen= document.getElementById("options-screen");
+
+      document.getElementById('load-button').addEventListener('click', function() {loadScreen.classList.remove("hidden");
+      });
+
+      document.getElementById('option-button').addEventListener('click', function() {optionsScreen.classList.remove("hidden");
+      });
+
+      //Fechar Overlays
+      document.querySelectorAll(".close-button").forEach(button=>{
+        button.addEventListener("click", ()=>{
+          button.closest(".overlay").classList.add("hidden");
+        });
+      });
+
+      //Fechando clicando fora do conteúdo
+      document.querySelectorAll(".overlay").forEach(overlay =>{
+        overlay.addEventListener("click", (e) =>{
+          if(e.target === overlay){
+            overlay.classList.add("hidden");
+          }
+        });
+      });
+
+    </script>
 </body>
 </html>
