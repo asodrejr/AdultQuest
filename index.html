@@ -1,23 +1,56 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AdultQuest MVP</title>
+  <title>AdultQuest MVP - Login</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <div id="intro-screen">
-
     <div id="scene">
       <div class="background"></div>
     </div>
 
-    <button id="start-button">Começar Aventura</button>
+    <footer id="intro-footer">
+      <div id="login-container">
+        <button id="login-button" class="google-btn">
+          <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google Logo">
+          <span>Entrar com Google</span>
+        </button>
+
+        <button id="start-button" style="display:none;">Começar Aventura</button>
+      </div>
+      <p id="user-status"></p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/env.js"></script>
+    <script src="js/supabase-config.js"></script>
+    
     <script>
-    document.getElementById('start-button').addEventListener('click', function() {
-    window.location.href = 'game.html';
-    });
+      const loginBtn = document.getElementById('login-button');
+      const startBtn = document.getElementById('start-button');
+      const statusText = document.getElementById('user-status');
+
+      loginBtn.addEventListener('click', async () => {
+        await window.supabaseClient.auth.signInWithOAuth({
+          provider: 'google',
+          options: { redirectTo: window.location.origin + '/index.html' }
+        });
+      });
+
+      async function checkUser() {
+        const { data: { user } } = await window.supabaseClient.auth.getUser();
+        if (user) {
+          loginBtn.style.display = 'none';
+          startBtn.style.display = 'inline-block';
+          statusText.innerText = `Logado como: ${user.user_metadata.full_name || user.email}`;
+        }
+      }
+      checkUser();
+
+      startBtn.addEventListener('click', () => { window.location.href = 'game.html'; });
     </script>
   </div>
 </body>

@@ -8,10 +8,8 @@
 </head>
 <body>
   <div id="game-screen">
-    <!-- Fundo com personagem integrado -->
     <img src="assets/backgrounds/character_standing.png" alt="Cenário e Personagem" class="background">
 
-    <!-- Painel de atributos -->
     <div id="attribute-panel">
       <h2>ATRIBUTOS</h2>
 
@@ -65,17 +63,59 @@
         <span>PONTOS: <span id="points">2</span></span>
       </div>
 
-      <div id="attribute-actions" style="margin-top: 1rem; text-align:center;">
+      <div id="attribute-actions" style="margin-top: 1rem; text-align:center; display: flex; flex-direction: column; gap: 10px;">
+        <button id="save-button" style="background-color: #28a745; color: white; padding: 10px; border: none; border-radius: 5px; cursor: pointer;">Salvar Progresso</button>
         <button id="advance-button">Avançar para o Mapa</button>
       </div>
     </div>
   </div>
 
-  <!-- Primeiro carrega seu JS do jogo -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/env.js"></script>
+  <script src="js/supabase-config.js"></script>
+  
   <script src="js/game.js"></script>
 
-  <!-- Depois o script inline para o botão avançar -->
   <script>
+    // Lógica para o botão de Salvar (Integrada ao seu Banco de Dados)
+    document.getElementById('save-button').addEventListener('click', async function() {
+        const { data: { user } } = await window.supabaseClient.auth.getUser();
+        
+        if (!user) {
+            alert("Sessão expirada. Faça login novamente.");
+            window.location.href = 'index.html';
+            return;
+        }
+
+        // Captura todos os valores atuais da tela
+        const gameState = {
+            money: parseInt(document.getElementById('money').innerText),
+            energy: parseInt(document.getElementById('energy').innerText),
+            stress: parseInt(document.getElementById('stress').innerText),
+            health: parseInt(document.getElementById('health').innerText),
+            relationships: parseInt(document.getElementById('relationships').innerText),
+            xp: parseInt(document.getElementById('xp').innerText),
+            points: parseInt(document.getElementById('points').innerText)
+        };
+
+        // Envia para a tabela game_saves que criamos no Supabase
+        const { error } = await window.supabaseClient
+            .from('game_saves')
+            .insert([{ 
+                profile_id: user.id, 
+                save_name: 'Manual Save', 
+                game_state: gameState 
+            }]);
+
+        if (error) {
+            console.error("Erro ao salvar no banco:", error);
+            alert("Erro técnico ao salvar.");
+        } else {
+            alert("Progresso da Vida Adulta salvo!");
+        }
+    });
+
+    // Navegação original
     document.getElementById('advance-button').addEventListener('click', function() {
         window.location.href = 'map.html';
     });
