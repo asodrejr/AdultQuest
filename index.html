@@ -12,11 +12,10 @@
     <div class="login-box">
       <h2>Login</h2>
 
-      <input type="text" id="username" placeholder="Usuário">
-      <input type="password" id="password" placeholder="Senha">
-
-      <button id="login-btn">Entrar</button>
-      <button id="register-btn">Registrar</button>
+      <button id="login-btn" class="google-btn">
+      <img src="assets/google-icon.svg" alt="Google" />
+        Entrar com Google
+      </button>
 
       <p id="login-error"></p>
     </div>
@@ -55,6 +54,9 @@
   </div>
   
 </div>
+    <script src="https://cdn.jsdelivr.net/npm/@supabse-js@2"></script>
+    <script src="js/env.js"></script>
+    <script src="js/supabase-config.js"></script>
     <script src="login.js"></script>
 </body>
 </html>
