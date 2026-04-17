@@ -7,51 +7,55 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+  <!-- LOGIN SCREEN -->
+  <div id="login-screen" class="background">
+    <div class="login-box">
+      <h2>Login</h2>
+
+      <button id="login-btn" class="google-btn">
+      <img src="assets/google-icon.svg" alt="Google" />
+        Entrar com Google
+      </button>
+
+      <p id="login-error"></p>
+    </div>
+  </div>
+
   <div id="intro-screen">
     <div id="scene">
       <div class="background"></div>
     </div>
 
-    <footer id="intro-footer">
-      <div id="login-container">
-        <button id="login-button" class="google-btn">
-          <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google Logo">
-          <span>Entrar com Google</span>
-        </button>
+   <div id="menu-buttons">
+      <button id="start-button" class="menu-button">Start</button>
+      <button id="load-button" class="menu-button">Load</button>
+      <button id="option-button" class="menu-button">Options</button>
+    </div>
 
-        <button id="start-button" style="display:none;">Começar Aventura</button>
+    <!-- OVERLAY LOAD -->
+    <div id="load-screen" class="overlay hidden">
+      <div class="overlay-content">
+        <h2>Load Game</h2>
+        <p>Aqui você pode carregar seu progresso.</p>
+        <button class="close-button">Voltar</button>
       </div>
-      <p id="user-status"></p>
-    </footer>
+    </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+     <!-- OVERLAY OPTIONS -->
+    <div id="options-screen" class="overlay hidden">
+      <div class="overlay-content">
+        <h2>Options</h2>
+        <p>Configurações do jogo.</p>
+        <button class="close-button">Voltar</button>
+      </div>
+    </div>
+
+  </div>
+  
+</div>
+    <script src="https://cdn.jsdelivr.net/npm/@supabse-js@2"></script>
     <script src="js/env.js"></script>
     <script src="js/supabase-config.js"></script>
-    
-    <script>
-      const loginBtn = document.getElementById('login-button');
-      const startBtn = document.getElementById('start-button');
-      const statusText = document.getElementById('user-status');
-
-      loginBtn.addEventListener('click', async () => {
-        await window.supabaseClient.auth.signInWithOAuth({
-          provider: 'google',
-          options: { redirectTo: window.location.origin + '/index.html' }
-        });
-      });
-
-      async function checkUser() {
-        const { data: { user } } = await window.supabaseClient.auth.getUser();
-        if (user) {
-          loginBtn.style.display = 'none';
-          startBtn.style.display = 'inline-block';
-          statusText.innerText = `Logado como: ${user.user_metadata.full_name || user.email}`;
-        }
-      }
-      checkUser();
-
-      startBtn.addEventListener('click', () => { window.location.href = 'game.html'; });
-    </script>
-  </div>
+    <script src="login.js"></script>
 </body>
 </html>

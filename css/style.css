@@ -5,10 +5,37 @@ html, body {
   width: 100vw;
   height: 100vh;
   font-family: monospace;
-  overflow: hidden; /* Elimina qualquer scroll */
+  overflow-x: hidden;
 }
 
-/* 2. TELA DE INTRODUÇÃO */
+#login-screen {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.google-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+
+  padding: 0.8rem;
+  border: none;
+  border-radius: 6px;
+
+  background-color: #fff;
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.google-btn img {
+  width: 20px;
+  height: 20px;
+}
+
 #intro-screen {
   width: 100vw;
   height: 100vh;
@@ -60,73 +87,52 @@ html, body {
   z-index: 2;
 }
 
-/* 3. RODAPÉ E BOTÕES DE LOGIN/START */
-#intro-footer {
+#menu-buttons {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  padding: 20px 0;
-  background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
-  text-align: center;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  
   display: flex;
   flex-direction: column;
+  gap: 1rem; /* espaço entre botões */
   align-items: center;
-  gap: 10px;
-  z-index: 10;
 }
 
-.google-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #ffffff;
-  color: #757575;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  padding: 0 12px;
-  height: 40px;
-  font-family: 'Roboto', arial, sans-serif;
-  font-weight: 500;
-  cursor: pointer;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-  transition: background-color 0.2s, box-shadow 0.2s;
-}
-
-.google-btn:hover {
-  background-color: #f8f8f8;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.3);
-}
-
-.google-btn img {
-  width: 18px;
-  height: 18px;
-  margin-right: 10px;
-}
-
-/* Estilo do botão de start (original) adaptado para o rodapé */
-#start-button {
-  padding: 15px 30px;
-  font-size: 1.5rem;
+.menu-button {
+  padding: 2vw 4vw;
+  font-size: 4vw;
   border: none;
   border-radius: 8px;
-  background-color: #f0c000;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.288);
+  background-color: #f0c000b8;
   color: #000;
   font-weight: bold;
   cursor: pointer;
   box-shadow: 0 4px 0 #d9a800;
 }
 
-#start-button:active {
-  transform: translateY(2px);
-  box-shadow: 0 2px 0 #d9a800;
+.menu-button:active {
+  background-color: #d9a800;
 }
 
-#user-status {
-  font-size: 0.8rem;
-  color: #eee;
-  margin: 0;
-  text-shadow: 1px 1px 2px #000;
+.menu-button:hover{
+  color: #d9a600;
+  background-color: #252525c7;
+}
+
+
+@media (min-width: 768px) {
+  #game-title {
+    font-size: 3vw;
+  }
+  .player {
+    width: 10vw;
+  }
+  #start-button {
+    padding: 2vw 5vw;
+    font-size: 2.5vw;
+  }
 }
 
 /* 4. TELA DE JOGO E MAPA */
@@ -223,11 +229,41 @@ html, body {
   }
 }
 
-@media (min-width: 768px) {
-  #game-title {
-    font-size: 3vw;
-  }
-  .player {
-    width: 10vw;
-  }
+#map-screen {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+#map-screen .background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: -1;
+}
+
+
+/* Botão de fechar */
+.close-button {
+  margin-top: 1rem;
+  padding: 0.8rem 1.5rem;
+  border: none;
+  background-color: #f0c000;
+  color: #000;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.close-button:hover {
+  background-color: #d9a800;
+}
+
+/* Classe para esconder */
+.hidden {
+  display: none;
 }
