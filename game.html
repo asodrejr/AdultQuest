@@ -14,47 +14,46 @@
       <h2>ATRIBUTOS</h2>
 
       <div class="attr">
-        <label>Dinheiro</label>
+        <label>
+          <img src="./assets/icons/icons8-health-50.png" alt="">
+          Vigor</label>
         <div class="controls">
-          <button onclick="changeAttr('money', -1)">-</button>
-          <span id="money">1</span>
-          <button onclick="changeAttr('money', 1)">+</button>
+          <button onclick="changeAttr('vigor', -1)">-</button>
+          <span id="vigor">1</span>
+          <button onclick="changeAttr('vigor', 1)">+</button>
         </div>
       </div>
 
       <div class="attr">
-        <label>Energia</label>
+        <label>
+          <img src="./assets/icons/icons8-mind-50.png" alt="">
+          Mente</label>
         <div class="controls">
-          <button onclick="changeAttr('energy', -1)">-</button>
-          <span id="energy">1</span>
-          <button onclick="changeAttr('energy', 1)">+</button>
+          <button onclick="changeAttr('mente', -1)">-</button>
+          <span id="mente">1</span>
+          <button onclick="changeAttr('mente', 1)">+</button>
         </div>
       </div>
 
       <div class="attr">
-        <label>Estresse</label>
+        <label>
+          <img src="./assets/icons/icons8-emotional-intelligence-50.png" alt="">
+          Emocional</label>
         <div class="controls">
-          <button onclick="changeAttr('stress', -1)">-</button>
-          <span id="stress">1</span>
-          <button onclick="changeAttr('stress', 1)">+</button>
+          <button onclick="changeAttr('emocional', -1)">-</button>
+          <span id="emocional">1</span>
+          <button onclick="changeAttr('emocional', 1)">+</button>
         </div>
       </div>
 
       <div class="attr">
-        <label>Saúde</label>
+        <label>
+          <img src="./assets/icons/icons8-social-50.png" alt="">
+          Social</label>
         <div class="controls">
-          <button onclick="changeAttr('health', -1)">-</button>
-          <span id="health">1</span>
-          <button onclick="changeAttr('health', 1)">+</button>
-        </div>
-      </div>
-
-      <div class="attr">
-        <label>Relacionamentos</label>
-        <div class="controls">
-          <button onclick="changeAttr('relationships', -1)">-</button>
-          <span id="relationships">1</span>
-          <button onclick="changeAttr('relationships', 1)">+</button>
+          <button onclick="changeAttr('social', -1)">-</button>
+          <span id="social">1</span>
+          <button onclick="changeAttr('social', 1)">+</button>
         </div>
       </div>
 
@@ -89,8 +88,8 @@
 
         // Captura todos os valores atuais da tela
         const gameState = {
-            money: parseInt(document.getElementById('money').innerText),
-            energy: parseInt(document.getElementById('energy').innerText),
+            money: parseInt(document.getElementById('corpo').innerText),
+            energy: parseInt(document.getElementById('mente').innerText),
             stress: parseInt(document.getElementById('stress').innerText),
             health: parseInt(document.getElementById('health').innerText),
             relationships: parseInt(document.getElementById('relationships').innerText),
