@@ -1,8 +1,8 @@
 // Objeto central de atributos
 let player = {
-  vigor: 1,
-  mente: 1,
-  emocional: 1,
+  body: 1,
+  mind: 1,
+  emotions: 1,
   social: 1,
   xp: 0,
   points: 2
@@ -10,9 +10,9 @@ let player = {
 
 // Atualiza valores na tela
 function updateHUD() {
-  document.getElementById('vigor').innerText = player.vigor;
-  document.getElementById('mente').innerText = player.mente;
-  document.getElementById('emocional').innerText = player.emocional;
+  document.getElementById('body').innerText = player.body;
+  document.getElementById('mind').innerText = player.mind;
+  document.getElementById('emotions').innerText = player.emotions;
   document.getElementById('social').innerText = player.social;
   document.getElementById('xp').innerText = player.xp;
   document.getElementById('points').innerText = player.points;
