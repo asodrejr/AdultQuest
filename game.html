@@ -18,9 +18,9 @@
           <img src="./assets/icons/icons8-chest-50.png" alt="">
           Físico</label>
         <div class="controls">
-          <button onclick="changeAttr('body', -1)">-</button>
-          <span id="body">1</span>
-          <button onclick="changeAttr('body', 1)">+</button>
+          <button onclick="changeAttr('attr_body', -1)">-</button>
+          <span id="attr_body">1</span>
+          <button onclick="changeAttr('attr_body', 1)">+</button>
         </div>
       </div>
 
@@ -29,9 +29,9 @@
           <img src="./assets/icons/icons8-mind-50.png" alt="">
           Mente</label>
         <div class="controls">
-          <button onclick="changeAttr('mind', -1)">-</button>
-          <span id="mind">1</span>
-          <button onclick="changeAttr('mind', 1)">+</button>
+          <button onclick="changeAttr('attr_mind', -1)">-</button>
+          <span id="attr_mind">1</span>
+          <button onclick="changeAttr('attr_mind', 1)">+</button>
         </div>
       </div>
 
@@ -40,9 +40,9 @@
           <img src="./assets/icons/icons8-emotional-intelligence-50.png" alt="">
           Emocional</label>
         <div class="controls">
-          <button onclick="changeAttr('emotions', -1)">-</button>
-          <span id="emotions">1</span>
-          <button onclick="changeAttr('emotions', 1)">+</button>
+          <button onclick="changeAttr('attr_emotions', -1)">-</button>
+          <span id="attr_emotions">1</span>
+          <button onclick="changeAttr('attr_emotions', 1)">+</button>
         </div>
       </div>
 
@@ -51,9 +51,9 @@
           <img src="./assets/icons/icons8-social-50.png" alt="">
           Social</label>
         <div class="controls">
-          <button onclick="changeAttr('social', -1)">-</button>
-          <span id="social">1</span>
-          <button onclick="changeAttr('social', 1)">+</button>
+          <button onclick="changeAttr('attr_social', -1)">-</button>
+          <span id="attr_social">1</span>
+          <button onclick="changeAttr('attr_social', 1)">+</button>
         </div>
       </div>
 
@@ -88,11 +88,10 @@
 
         // Captura todos os valores atuais da tela
         const gameState = {
-            money: parseInt(document.getElementById('body').innerText),
-            energy: parseInt(document.getElementById('mind').innerText),
-            stress: parseInt(document.getElementById('stress').innerText),
-            health: parseInt(document.getElementById('health').innerText),
-            relationships: parseInt(document.getElementById('relationships').innerText),
+            money: parseInt(document.getElementById('attr_body').innerText),
+            energy: parseInt(document.getElementById('attr_mind').innerText),
+            stress: parseInt(document.getElementById('attr_emotions').innerText),
+            health: parseInt(document.getElementById('attr_social').innerText),
             xp: parseInt(document.getElementById('xp').innerText),
             points: parseInt(document.getElementById('points').innerText)
         };
