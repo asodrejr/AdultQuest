@@ -76,47 +76,35 @@
   <script src="js/game.js"></script>
 
   <script>
-    // Lógica para o botão de Salvar (Integrada ao seu Banco de Dados)
     document.getElementById('save-button').addEventListener('click', async function() {
-        const { data: { user } } = await window.supabaseClient.auth.getUser();
-        
-        if (!user) {
-            alert("Sessão expirada. Faça login novamente.");
-            window.location.href = 'index.html';
-            return;
-        }
 
-        // Captura todos os valores atuais da tela
-        const gameState = {
-            attr_body: parseInt(document.getElementById('attr_body').innerText),
-            attr_mind: parseInt(document.getElementById('attr_mind').innerText),
-            attr_emotions: parseInt(document.getElementById('attr_emotions').innerText),
-            attr_social: parseInt(document.getElementById('attr_social').innerText),
-            xp: parseInt(document.getElementById('xp').innerText),
-            points: parseInt(document.getElementById('points').innerText)
-        };
+      const { data: { user } } = await window.supabaseClient.auth.getUser();
 
-        // Envia para a tabela game_saves que criamos no Supabase
-        const { error } = await window.supabaseClient
-            .from('game_saves')
-            .insert([{ 
-                profile_id: user.id, 
-                save_name: 'Manual Save', 
-                game_state: gameState 
-            }]);
+      if (!user) {
+        alert("Sessão expirada.");
+        window.location.href = 'index.html';
+        return;
+      }
 
-        if (error) {
-            console.error("Erro ao salvar no banco:", error);
-            alert("Erro técnico ao salvar.");
-        } else {
-            alert("Progresso da Vida Adulta salvo!");
-        }
-    });
+      const { error } = await window.supabaseClient
+          .from('public.player_character_attributes')
+          .update({
+              attr_body: player.attr_body,
+              attr_mind: player.attr_mind,
+              attr_emotions: player.attr_emotions,
+              attr_social: player.attr_social,
+              xp: player.xp,
+              points: player.points
+          })
+          .eq('public.profiles_id', user.id);
 
-    // Navegação original
-    document.getElementById('advance-button').addEventListener('click', function() {
-        window.location.href = 'map.html';
-    });
+      if (error) {
+          console.error("Erro ao salvar:", error);
+          alert("Erro ao salvar.");
+      } else {
+          alert("Progresso salvo!");
+      }
+  });
   </script>
 </body>
 </html>

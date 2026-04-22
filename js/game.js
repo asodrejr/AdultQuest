@@ -1,15 +1,10 @@
 // Objeto central de atributos
-let player = {
-  attr_body: 1,
-  attr_mind: 1,
-  attr_emotions: 1,
-  attr_social: 1,
-  xp: 0,
-  points: 2
-};
+let player = null;
 
-// Atualiza valores na tela
+// Atualiza HUD
 function updateHUD() {
+  if(!player) return;
+
   document.getElementById('attr_body').innerText = player.attr_body;
   document.getElementById('attr_mind').innerText = player.attr_mind;
   document.getElementById('attr_emotions').innerText = player.attr_emotions;
@@ -18,14 +13,13 @@ function updateHUD() {
   document.getElementById('points').innerText = player.points;
 }
 
-// Altera atributo com + ou -
+// Altera atributo
 function changeAttr(attr, delta) {
+  if(!player) return;
+
   if (player.points <= 0 && delta > 0) return;
 
   player[attr] += delta;
-
-  // Mantém mínimo em 0
-  if (player[attr] < 0) player[attr] = 0;
 
   // Ajusta pontos
   if (delta > 0) player.points--;
@@ -34,5 +28,33 @@ function changeAttr(attr, delta) {
   updateHUD();
 }
 
+//CHAMANDO O BANCO
+async function loadPalyerData(){
+
+  const {data: {user}, error: userError} = await window.supabasaClient.auth.getUser();
+
+  if(userError || !user){
+    alert("Usuário não autentificado.");
+    window.location.href = "index.html";
+    return;
+  }
+
+  const {data, error} = await window.supabasaClient
+  .from('public.player_character_attributes')
+  .select('*')
+  .eq('profile_id', user.id)
+  .single();// para somente um personagem então se formos ter equipe isso pode será no futuro
+
+  if(error){
+    console.error("Erro ao carregar personagem:", error);
+    alert("|Personagem não encontrado.");
+    return;
+  }
+
+  player = data;
+  updateHUD();
+
+}
+
 // Inicializa
-updateHUD();
+loadPalyerData();
