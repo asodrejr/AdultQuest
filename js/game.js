@@ -1,19 +1,19 @@
 // Objeto central de atributos
 let player = {
-  body: 1,
-  mind: 1,
-  emotions: 1,
-  social: 1,
+  attr_body: 1,
+  attr_mind: 1,
+  attr_emotions: 1,
+  attr_social: 1,
   xp: 0,
   points: 2
 };
 
 // Atualiza valores na tela
 function updateHUD() {
-  document.getElementById('body').innerText = player.body;
-  document.getElementById('mind').innerText = player.mind;
-  document.getElementById('emotions').innerText = player.emotions;
-  document.getElementById('social').innerText = player.social;
+  document.getElementById('attr_body').innerText = player.attr_body;
+  document.getElementById('attr_mind').innerText = player.attr_mind;
+  document.getElementById('attr_emotions').innerText = player.attr_emotions;
+  document.getElementById('attr_social').innerText = player.attr_social;
   document.getElementById('xp').innerText = player.xp;
   document.getElementById('points').innerText = player.points;
 }
