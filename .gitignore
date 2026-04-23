@@ -2,7 +2,7 @@
 node_modules/
 
 # Chaves e Segredos
-js/env.js
+backend/js/env.js
 .env
 .credenciais/
 

@@ -81,7 +81,7 @@ const startBtn = document.getElementById("start-button");
 
 if (startBtn) {
     startBtn.addEventListener("click", () => {
-        window.location.href = "game.html";
+        window.location.href = "/frontend/game.html";
     });
 }
 

@@ -70,41 +70,23 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="js/env.js"></script>
-  <script src="js/supabase-config.js"></script>
-  
+  <script src="../backend/js/env.js"></script>
+  <script src="../backend/js/supabase-config.js"></script>
+  <script src="../backend/js/api.js"></script>
   <script src="js/game.js"></script>
-
+  <script src="js/login.js"></script> <script></script>
   <script>
-    document.getElementById('save-button').addEventListener('click', async function() {
-
-      const { data: { user } } = await window.supabaseClient.auth.getUser();
-
-      if (!user) {
-        alert("Sessão expirada.");
-        window.location.href = 'index.html';
-        return;
-      }
-
-      const { error } = await window.supabaseClient
-          .from('public.player_character_attributes')
-          .update({
-              attr_body: player.attr_body,
-              attr_mind: player.attr_mind,
-              attr_emotions: player.attr_emotions,
-              attr_social: player.attr_social,
-              xp: player.xp,
-              points: player.points
-          })
-          .eq('public.profiles_id', user.id);
-
-      if (error) {
-          console.error("Erro ao salvar:", error);
-          alert("Erro ao salvar.");
-      } else {
-          alert("Progresso salvo!");
-      }
-  });
+    // Botão chama a função definida no game.js
+    if (document.getElementById('save-button')) {
+            document.getElementById('save-button').addEventListener('click', handleSave);
+        }
+        
+        if (document.getElementById('advance-button')) {
+            document.getElementById('advance-button').addEventListener('click', () => {
+                window.location.href = 'map.html';
+            });
+        }
   </script>
+
 </body>
 </html>
