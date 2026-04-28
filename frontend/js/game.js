@@ -36,19 +36,27 @@ function updateHUD() {
 function changeAttr(attrName, amount) {
     if (!player) return;
 
+    function showWarning(msg = "") {
+        document.getElementById("warning-msg").innerText = msg;
+    }
+
     // 1. Verificar atributo >= 6 proibido quando personagem inicial
     if (amount > 0) {
         // current_xp <= 0 do personagem inicial não permite atributo maior que 6
         if ((player.current_xp <= 0) && (player[attrName] >= 6)) {
-            alert("Personagens iniciais tem atributo máximo = 6!");
+            showWarning("Atributo inicial máximo permitido: 6");
             return;
         }
 
         // Verificar pontos disponíveis
+
         if (player.available_points <= 0) {
-            alert("Você não tem pontos disponíveis!");
+            showWarning("Você não possui pontos disponíveis.");
             return;
         }
+
+        showWarning("");
+        
     }
 
     // 2. Impedir atributo < 1
