@@ -36,22 +36,41 @@ function updateHUD() {
 function changeAttr(attrName, amount) {
     if (!player) return;
 
-    // Se tentar aumentar (+) e não tiver pontos, não faz nada
-    if (amount > 0 && player.available_points <= 0) {
-        alert("Você não tem pontos disponíveis!");
-        return;
+    function showWarning(msg = "") {
+        document.getElementById("warning-msg").innerText = msg;
     }
 
-    // Se tentar diminuir (-) e o atributo já for 1 (mínimo), não faz nada
-    if (amount < 0 && player[attrName] <= 1) {
-        return;
+    // 1. Verificar atributo >= 6 proibido quando personagem inicial
+    if (amount > 0) {
+        // current_xp <= 0 do personagem inicial não permite atributo maior que 6
+        if ((player.current_xp <= 0) && (player[attrName] >= 6)) {
+            showWarning("Atributo inicial máximo permitido: 6");
+            return;
+        }
+
+        // Verificar pontos disponíveis
+
+        if (player.available_points <= 0) {
+            showWarning("Você não possui pontos disponíveis.");
+            return;
+        }
+
+        showWarning("");
+        
     }
 
-    // Atualiza os valores no objeto player
+    // 2. Impedir atributo < 1
+    if (amount < 0) {
+        if (player[attrName] <= 1) {
+            return;
+        }
+    }
+
+    // 3. +-
     player[attrName] += amount;
     player.available_points -= amount;
 
-    // Atualiza a tela
+    // 4. Update
     updateHUD();
 }
 
