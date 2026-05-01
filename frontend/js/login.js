@@ -2,38 +2,60 @@ const loginScreen = document.getElementById("login-screen");
 const introScreen = document.getElementById("intro-screen");
 const loginBtn = document.getElementById("login-btn");
 
-const loadScreen = document.getElementById("load-screen");
+const startBtn = document.getElementById("start-button");
+const optionsBtn = document.getElementById("option-button");
+
 const optionsScreen = document.getElementById("options-screen");
+const menuButtons = document.getElementById("menu-buttons");
+const closeBtn = document.querySelector(".close-button");
 
-// Esconde menu até login
-if (introScreen) introScreen.style.display = "none";
+// CONTROLES
+const volumeUp = document.getElementById("volume-up");
+const volumeDown = document.getElementById("volume-down");
+const volumeValue = document.getElementById("volume-value");
 
-// Verifica sessão existente (Supabase)
+const fontUp = document.getElementById("font-up");
+const fontDown = document.getElementById("font-down");
+const fontValue = document.getElementById("font-value");
+
+const languageSelect = document.getElementById("language-select");
+
+// ===============================
+// CONFIG INICIAL
+// ===============================
+
+let volume = localStorage.getItem("gameVolume") || 50;
+let fontSize = localStorage.getItem("gameFont") || 16;
+let language = localStorage.getItem("gameLanguage") || "pt-br";
+
+// ===============================
+// ESCONDE MENU ATÉ LOGIN
+// ===============================
+
+if (introScreen) {
+    introScreen.style.display = "none";
+}
+
+// ===============================
+// INICIA VALORES VISUAIS
+// ===============================
+
+if (volumeValue) volumeValue.innerText = volume + "%";
+if (fontValue) fontValue.innerText = fontSize + "px";
+if (languageSelect) languageSelect.value = language;
+
+// ===============================
+// LOGIN
+// ===============================
+
 checkUser();
 
-// ==========================
-// FUNÇÕES
-// ==========================
-
-function showGame() {
-    if (loginScreen) loginScreen.style.display = "none";
-    if (introScreen) introScreen.style.display = "block";
-}
-
-function showError(msg) {
-    const errorEl = document.getElementById("login-error");
-    if (errorEl) errorEl.innerText = msg;
-}
-
-// ==========================
-// VERIFICA LOGIN
-// ==========================
-
 async function checkUser() {
+
     const { data, error } = await window.supabaseClient.auth.getUser();
 
     if (error) {
-        console.error("Erro ao verificar usuário:", error.message);
+        console.error(error.message);
         return;
     }
 
@@ -42,73 +64,176 @@ async function checkUser() {
     }
 }
 
-// ==========================
-// LOGIN GOOGLE
-// ==========================
+function showGame() {
+
+    if (loginScreen) loginScreen.style.display = "none";
+    if (introScreen) introScreen.style.display = "block";
+}
+
+function showError(msg) {
+
+    const errorEl = document.getElementById("login-error");
+
+    if (errorEl) {
+        errorEl.innerText = msg;
+    }
+}
+
+// BOTÃO LOGIN
 
 if (loginBtn) {
+
     loginBtn.addEventListener("click", async () => {
 
         const { error } = await window.supabaseClient.auth.signInWithOAuth({
             provider: "google",
             options: {
-                redirectTo: window.location.origin + '/index.html'
+                redirectTo: window.location.origin + "/index.html"
             }
         });
 
         if (error) {
-            console.error("Erro no login:", error.message);
             showError("Erro ao conectar com Google.");
         }
+
     });
+
 }
 
-// ==========================
-// DETECTA LOGIN APÓS REDIRECT
-// ==========================
+// DETECTA LOGIN
 
 window.supabaseClient.auth.onAuthStateChange((event, session) => {
+
     if (event === "SIGNED_IN" && session) {
         showGame();
     }
+
 });
 
-// ==========================
+// ===============================
 // START GAME
-// ==========================
-
-const startBtn = document.getElementById("start-button");
+// ===============================
 
 if (startBtn) {
+
     startBtn.addEventListener("click", () => {
         window.location.href = "/frontend/game.html";
     });
+
 }
 
-// ==========================
-// OVERLAYS
-// ==========================
+// ===============================
+// OPTIONS MENU
+// ===============================
 
-document.getElementById('load-button')?.addEventListener('click', () => {
-    loadScreen?.classList.remove("hidden");
-});
+if (optionsBtn) {
 
-document.getElementById('option-button')?.addEventListener('click', () => {
-    optionsScreen?.classList.remove("hidden");
-});
+    optionsBtn.addEventListener("click", () => {
 
-// Fechar botão
-document.querySelectorAll(".close-button").forEach(button => {
-    button.addEventListener("click", () => {
-        button.closest(".overlay")?.classList.add("hidden");
+        menuButtons.style.display = "none";
+        optionsScreen.classList.remove("hidden");
+
     });
-});
 
-// Fechar clicando fora
-document.querySelectorAll(".overlay").forEach(overlay => {
-    overlay.addEventListener("click", (e) => {
-        if (e.target === overlay) {
-            overlay.classList.add("hidden");
+}
+
+// FECHAR OPTIONS
+
+if (closeBtn) {
+
+    closeBtn.addEventListener("click", () => {
+
+        optionsScreen.classList.add("hidden");
+        menuButtons.style.display = "flex";
+
+    });
+
+}
+
+// ===============================
+// VOLUME
+// ===============================
+
+if (volumeUp) {
+
+    volumeUp.onclick = () => {
+
+        if (volume < 100) {
+
+            volume = Number(volume) + 10;
+
+            volumeValue.innerText = volume + "%";
+
+            localStorage.setItem("gameVolume", volume);
         }
-    });
-});
+
+    };
+
+}
+
+if (volumeDown) {
+
+    volumeDown.onclick = () => {
+
+        if (volume > 0) {
+
+            volume = Number(volume) - 10;
+
+            volumeValue.innerText = volume + "%";
+
+            localStorage.setItem("gameVolume", volume);
+        }
+
+    };
+
+}
+
+// ===============================
+// TAMANHO FONTE
+// ===============================
+
+if (fontUp) {
+
+    fontUp.onclick = () => {
+
+        fontSize = Number(fontSize) + 2;
+
+        fontValue.innerText = fontSize + "px";
+
+        localStorage.setItem("gameFont", fontSize);
+    };
+
+}
+
+if (fontDown) {
+
+    fontDown.onclick = () => {
+
+        if (fontSize > 10) {
+
+            fontSize = Number(fontSize) - 2;
+
+            fontValue.innerText = fontSize + "px";
+
+            localStorage.setItem("gameFont", fontSize);
+        }
+
+    };
+
+}
+
+// ===============================
+// IDIOMA
+// ===============================
+
+if (languageSelect) {
+
+    languageSelect.onchange = function () {
+
+        localStorage.setItem("gameLanguage", this.value);
+
+        console.log("Idioma alterado para:", this.value);
+
+    };
+
+}

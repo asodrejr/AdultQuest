@@ -100,11 +100,12 @@ html, body {
 }
 
 .menu-button {
-  padding: 2vw 4vw;
-  font-size: 4vw;
+  width: 260px;
+  padding: 1rem;
+  font-size: 1.5rem;
+
   border: none;
   border-radius: 8px;
-  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.288);
   background-color: #f0c000b8;
   color: #000;
   font-weight: bold;
@@ -129,10 +130,10 @@ html, body {
   .player {
     width: 10vw;
   }
-  #start-button {
-    padding: 2vw 5vw;
-    font-size: 2.5vw;
+  #start-button, #option-button {
+    width: 260px;
   }
+  
 }
 
 /* 4. TELA DE JOGO E MAPA */
@@ -275,4 +276,45 @@ html, body {
 /* Classe para esconder */
 .hidden {
   display: none;
+}
+
+#options-screen{
+    position:absolute;
+    bottom:10%;
+    left:50%;
+    transform:translateX(-50%);
+
+    width:320px;
+    padding:20px;
+
+    background:rgba(0,0,0,0.85);
+    color:white;
+    border-radius:12px;
+    z-index:50;
+}
+
+.hidden{
+    display:none;
+}
+
+.option-row{
+    margin:15px 0;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+}
+
+.option-row button,
+#back-options{
+    padding:8px 14px;
+    border:none;
+    background:#f0c000;
+    font-weight:bold;
+    cursor:pointer;
+    border-radius:6px;
+}
+
+select{
+    padding:5px;
 }
