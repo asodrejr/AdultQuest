@@ -11,7 +11,10 @@
     <img src="assets/backgrounds/character_standing.png" alt="Cenário e Personagem" class="background">
 
     <div id="attribute-panel">
+      <!--  Comentada div para add recurso de  tradução
       <h2>ATRIBUTOS</h2>
+      -->
+      <h2 data-i18n="attr_title">ATRIBUTOS</h2>
       <div id="warning-msg"></div>
 
       <div class="attr">
@@ -64,12 +67,17 @@
       </div>
 
       <div id="attribute-actions" style="margin-top: 1rem; text-align:center; display: flex; flex-direction: column; gap: 10px;">
-        <button id="save-button" style="background-color: #28a745; color: white; padding: 10px; border: none; border-radius: 5px; cursor: pointer;">Salvar Progresso</button>
-        <button id="advance-button">Avançar para o Mapa</button>
+        // ASJ 260502 Add: data-i18n + atributo (pode apagar os labals se quiser)
+        <button id="save-button" data-i18n="save_btn" style="background-color: #28a745; color: white; padding: 10px; border: none; border-radius: 5px; cursor: pointer;">Salvar Progresso</button>
+        <button id="advance-button" data-i18n="map_btn">Avançar para o Mapa</button>
       </div>
     </div>
   </div>
 
+  // ASJ 260502 Add: Novos arquivos de tradução
+  <script src="js/languages.js"></script>
+  <script src="js/i18n.js"></script>
+   
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="../backend/js/env.js"></script>
   <script src="../backend/js/supabase-config.js"></script>

@@ -44,14 +44,17 @@ function changeAttr(attrName, amount) {
     if (amount > 0) {
         // current_xp <= 0 do personagem inicial não permite atributo maior que 6
         if ((player.current_xp <= 0) && (player[attrName] >= 6)) {
-            showWarning("Atributo inicial máximo permitido: 6");
+            // ASJ 260502 Add: comentado showWarning fixo para showWarning com atributo i18n
+            //showWarning("Atributo inicial máximo permitido: 6");
+            showWarning(i18n.t("warning_max"));
             return;
         }
 
         // Verificar pontos disponíveis
-
         if (player.available_points <= 0) {
-            showWarning("Você não possui pontos disponíveis.");
+            // ASJ 260502 Add: comentado showWarning fixo para showWarning com atributo i18n
+            //showWarning("Você não possui pontos disponíveis.");
+            showWarning(i18n.t("warning_points"));
             return;
         }
 
