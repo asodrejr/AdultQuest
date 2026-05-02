@@ -76,8 +76,44 @@ function changeAttr(attrName, amount) {
 
 // O botão salvar no HTML agora chama isso:
 async function handleSave() {
-    const result = await AdultQuestAPI.saveCharacter(player);
-    if (result.success) alert("Progresso salvo!");
+    const saveBtn = document.getElementById('save-button');
+    const warningEl = document.getElementById("warning-msg");
+    
+    // 1. Feedback visual imediato (Botão de carregamento)
+    const originalText = saveBtn.innerText;
+    saveBtn.innerText = "Salvando...";
+    saveBtn.disabled = true;
+
+    try {
+        const result = await AdultQuestAPI.saveCharacter(player);
+        
+        if (result.success) {
+            // 2. MENSAGEM DE SUCESSO NO JOGO
+            if (warningEl) {
+                warningEl.style.color = "#28a745"; // Verde Sucesso
+                warningEl.innerText = "Progresso salvo com sucesso!";
+                
+                // Limpa a mensagem automaticamente após 3 segundos
+                setTimeout(() => {
+                    warningEl.innerText = "";
+                    warningEl.style.color = "#b30000"; // Volta para o vermelho padrão de avisos
+                }, 3000);
+            }
+        } else {
+            throw new Error(result.error);
+        }
+    } catch (e) {
+        // 3. MENSAGEM DE ERRO NO JOGO
+        if (warningEl) {
+            warningEl.style.color = "#b30000"; // Vermelho Erro
+            warningEl.innerText = "Erro ao salvar o progresso.";
+        }
+        console.error("Falha no salvamento:", e.message);
+    } finally {
+        // 4. Restaura o botão
+        saveBtn.innerText = originalText;
+        saveBtn.disabled = false;
+    }
 }
 
 init();

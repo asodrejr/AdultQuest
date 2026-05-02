@@ -9,67 +9,105 @@ const AdultQuestAPI = {
         current_xp: 0
     },
 
-    // Busca dados reais ou cria um novo se não existir
+    /**
+     * Busca os dados do personagem ou cria um novo.
+     * Implementado com tratamento de erro granular para o desenvolvedor.
+     */
     async getCharacter() {
-        const { data: { user } } = await window.supabaseClient.auth.getUser();
-        if (!user) return null;
-
-        // Tenta buscar o personagem
-        let { data, error } = await window.supabaseClient
-            .from('character_attributes')
-            .select('*')
-            .eq('profile_id', user.id)
-            .maybeSingle(); // maybeSingle não gera erro 406 se retornar vazio
-
-        // Se não existir (Erro PGRST116 ou data nulo), cria um novo
-        if (!data) {
-            console.log("Personagem não encontrado. Criando perfil inicial...");
-            const { data: newData, error: createError } = await window.supabaseClient
-                .from('character_attributes')
-                .insert([{
-                    profile_id: user.id,
-                    ...this.INITIAL_STATS
-                }])
-                .select()
-                .single();
-
-            if (createError) {
-                console.error("Erro crítico ao criar personagem:", createError);
-                throw createError;
+        try {
+            const { data: { user }, error: authError } = await window.supabaseClient.auth.getUser();
+            
+            if (authError || !user) {
+                console.warn("Usuário não autenticado.");
+                return null;
             }
-            return newData;
-        }
 
-        if (error) throw error;
+            // Busca o personagem usando maybeSingle para evitar erro 406 (Not Acceptable)
+            const { data, error } = await window.supabaseClient
+                .from('character_attributes')
+                .select('*')
+                .eq('profile_id', user.id)
+                .maybeSingle();
+
+            if (error) throw error;
+
+            // Se não encontrar dados, dispara a criação do perfil inicial
+            if (!data) {
+                return await this.createInitialCharacter(user.id);
+            }
+
+            return data;
+        } catch (err) {
+            console.error("Erro em getCharacter:", err.message);
+            throw err;
+        }
+    },
+
+    /**
+     * Cria o registro inicial na tabela character_attributes
+     */
+    async createInitialCharacter(userId) {
+        console.log("Iniciando criação de perfil para:", userId);
+        
+        const { data, error } = await window.supabaseClient
+            .from('character_attributes')
+            .insert([{
+                profile_id: userId,
+                ...this.INITIAL_STATS
+            }])
+            .select()
+            .single();
+
+        if (error) {
+            console.error("Erro ao inserir personagem inicial:", error.message);
+            throw error;
+        }
+        
         return data;
     },
 
-    // Salva com validação de integridade
+    /**
+     * Salva os atributos com validação de integridade.
+     * @param {Object} stats - O objeto 'player' vindo do frontend.
+     */
     async saveCharacter(stats) {
-        const { data: { user } } = await window.supabaseClient.auth.getUser();
-        if (!user) throw new Error("Usuário não autenticado");
+        try {
+            const { data: { user } } = await window.supabaseClient.auth.getUser();
+            if (!user) throw new Error("Sessão expirada. Faça login novamente.");
 
-        const total = Number(stats.attr_body) + 
-                    Number(stats.attr_mind) + 
-                    Number(stats.attr_emotions) + 
-                    Number(stats.attr_social) + 
-                    Number(stats.available_points);
+            // Validação de Integridade (Business Logic)
+            const total = Number(stats.attr_body) + 
+                          Number(stats.attr_mind) + 
+                          Number(stats.attr_emotions) + 
+                          Number(stats.attr_social) + 
+                          Number(stats.available_points);
 
-        if (total > 14) throw new Error("Violação de integridade!");
+            // O limite de 14 pontos é a soma dos iniciais (1+1+1+1 + 10)
+            if (total > 14) {
+                throw new Error("Integridade violada: Total de pontos excede o limite permitido.");
+            }
 
-        const { error } = await window.supabaseClient
-            .from('character_attributes')
-            .update({
-                attr_body: stats.attr_body,
-                attr_mind: stats.attr_mind,
-                attr_emotions: stats.attr_emotions,
-                attr_social: stats.attr_social,
-                available_points: stats.available_points,
-                current_xp: stats.current_xp,
-                updated_at: new Date()
-            })
-            .eq('profile_id', user.id);
+            // Update focado apenas nas colunas necessárias para evitar erros de constraint
+            const { error } = await window.supabaseClient
+                .from('character_attributes')
+                .update({
+                    attr_body: stats.attr_body,
+                    attr_mind: stats.attr_mind,
+                    attr_emotions: stats.attr_emotions,
+                    attr_social: stats.attr_social,
+                    available_points: stats.available_points,
+                    current_xp: stats.current_xp,
+                    updated_at: new Date()
+                })
+                .eq('profile_id', user.id);
 
-        return { success: !error, error };
+            if (error) throw error;
+
+            return { success: true };
+
+        } catch (err) {
+            console.error("Erro em saveCharacter:", err.message);
+            return { success: false, error: err.message };
+        }
     }
 };
